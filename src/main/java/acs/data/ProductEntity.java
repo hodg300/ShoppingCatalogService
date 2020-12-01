@@ -2,6 +2,7 @@ package acs.data;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
@@ -14,7 +15,7 @@ public class ProductEntity {
     @NotEmpty(message="Name can not be empty")
     private String name;    // NAME VARCHAR(255)
 
-    @NotEmpty(message="Price can not be empty")
+//    @NotEmpty(message="Price can not be empty")
     private Integer price;
 
     @NotEmpty(message="Image can not be empty")
@@ -24,15 +25,19 @@ public class ProductEntity {
     @Convert(converter = acs.logic.utils.MapToJsonConverter.class)
     private Map<String, Object> productDetails; // ELEMENT_ATTRIBUTES CLOB
 
-    public ProductEntity() {}
+    private CategoryEntity origin;
 
-    // TODO Add category attribute
+    public ProductEntity() {
+        this.productDetails = new HashMap<>();
+    }
+
     public ProductEntity(String id, String name, Integer price, String image, Map<String, Object> productDetails) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.image = image;
         this.productDetails = productDetails;
+
     }
 
     public String getId() {
@@ -73,5 +78,14 @@ public class ProductEntity {
 
     public void setProductDetails(Map<String, Object> productDetails) {
         this.productDetails = productDetails;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    public CategoryEntity getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(CategoryEntity origin) {
+        this.origin = origin;
     }
 }

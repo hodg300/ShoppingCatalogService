@@ -1,4 +1,6 @@
 package acs.boundary;
+import acs.data.CategoryEntity;
+
 import java.util.Map;
 
 public class ProductBoundary {
@@ -8,6 +10,7 @@ public class ProductBoundary {
     private Integer price;
     private String image;
     private Map<String, Object> productDetails;
+    private CategoryBoundary origin;
 
     public ProductBoundary() {
     }
@@ -58,5 +61,13 @@ public class ProductBoundary {
 
     public void setProductDetails(Map<String, Object> productDetails) {
         this.productDetails = productDetails;
+    }
+
+    public CategoryBoundary getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(CategoryBoundary origin) {
+        this.origin = origin;
     }
 }

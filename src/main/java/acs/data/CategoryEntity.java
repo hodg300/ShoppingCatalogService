@@ -2,6 +2,9 @@ package acs.data;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name="CATEGORIES")
 public class CategoryEntity {
@@ -12,29 +15,11 @@ public class CategoryEntity {
     @NotEmpty(message="Description can not be empty")
     private String description ;    // FIRST VARCHAR(255)
 
-//    @NotEmpty(message="Last name can not be empty")
-//    private String lastName;    // LAST VARCHAR(255)
-//
-//    @Password
-//    private String password;    // PASSWORD VARCHAR(255)
-//
-//    @NotNull
-//    private Date birthdate;    // CREATED_TIME_STAMP TIMESTAMP
-//
-//    @Lob
-//    @NotEmptyFields
-//    @Convert(converter = acs.logic.utils.SetToJsonConverter.class)
-//    public Set<String> roles;
-//
-//    @Formula("DATE_PART('YEAR', AGE(birthdate))::int")
-//    private int age;    // calculated field by birth date
-//
-//    public CategoryEntity() {
-//        this.roles = new HashSet<>();
-//    }
+    private Set<ProductEntity> productsElements;
 
-
-    public CategoryEntity() {}
+    public CategoryEntity() {
+        this.productsElements = new HashSet<>();
+    }
 
     public CategoryEntity(String name, String description) {
         super();
@@ -57,4 +42,19 @@ public class CategoryEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @OneToMany(mappedBy = "origin", fetch = FetchType.LAZY)
+    public Set<ProductEntity> getProductsElements() {
+        return productsElements;
+    }
+
+    public void setProductsElements(Set<ProductEntity> productsElements) {
+        this.productsElements = productsElements;
+    }
+
+    public void addProductElement(ProductEntity product) {
+        this.productsElements.add(product);
+    }
+
+
 }
