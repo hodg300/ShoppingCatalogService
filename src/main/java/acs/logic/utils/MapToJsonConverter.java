@@ -1,32 +1,32 @@
 package acs.logic.utils;
-import java.util.Set;
+import java.util.Map;
 import javax.persistence.AttributeConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class SetToJsonConverter implements AttributeConverter<Set<String>, String>{
+public class MapToJsonConverter implements AttributeConverter<Map<String,Object>, String>{
     private ObjectMapper jackson;
 
-    public SetToJsonConverter() {
+    public MapToJsonConverter() {
         this.jackson = new ObjectMapper();
     }
 
     @Override
-    public String convertToDatabaseColumn(Set<String> attribute) {
+    public String convertToDatabaseColumn(Map<String, Object> attributes) {
         // use jackson for marshalling the attributes
         try {
             return this.jackson
-                    .writeValueAsString(attribute);
+                    .writeValueAsString(attributes);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Set<String> convertToEntityAttribute(String dbData) {
+    public Map<String, Object> convertToEntityAttribute(String json) {
         // use jackson for unmarshalling the json
         try {
-            return this.jackson.readValue(dbData, Set.class);
+            return this.jackson.readValue(json, Map.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
