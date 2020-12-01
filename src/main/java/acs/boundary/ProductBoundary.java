@@ -7,20 +7,22 @@ public class ProductBoundary {
 
     private String id;
     private String name;
-    private Integer price;
+    private Float price;
     private String image;
     private Map<String, Object> productDetails;
-    private CategoryBoundary origin;
+    private CategoryBoundary category;
 
     public ProductBoundary() {
     }
     // TODO Add category attribute
-    public ProductBoundary(String id, String name, Integer price, String image, Map<String, Object> productDetails) {
+    public ProductBoundary(String id, String name, Float price, String image, Map<String, Object> productDetails
+    ,CategoryBoundary category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.image = image;
         this.productDetails = productDetails;
+        this.category = category;
     }
 
     public String getId() {
@@ -39,11 +41,11 @@ public class ProductBoundary {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -63,11 +65,11 @@ public class ProductBoundary {
         this.productDetails = productDetails;
     }
 
-    public CategoryBoundary getOrigin() {
-        return origin;
+    public CategoryBoundary getCategory() {
+        return category;
     }
 
-    public void setOrigin(CategoryBoundary origin) {
-        this.origin = origin;
+    public void setCategory(CategoryBoundary category) {
+        this.category = category;
     }
 }

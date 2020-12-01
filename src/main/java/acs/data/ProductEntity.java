@@ -16,7 +16,7 @@ public class ProductEntity {
     private String name;    // NAME VARCHAR(255)
 
 //    @NotEmpty(message="Price can not be empty")
-    private Integer price;
+    private Float price;
 
     @NotEmpty(message="Image can not be empty")
     private String image;    // IMAGE VARCHAR(255)
@@ -25,13 +25,14 @@ public class ProductEntity {
     @Convert(converter = acs.logic.utils.MapToJsonConverter.class)
     private Map<String, Object> productDetails; // ELEMENT_ATTRIBUTES CLOB
 
-    private CategoryEntity origin;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CategoryEntity category;
 
     public ProductEntity() {
         this.productDetails = new HashMap<>();
     }
 
-    public ProductEntity(String id, String name, Integer price, String image, Map<String, Object> productDetails) {
+    public ProductEntity(String id, String name, Float price, String image, Map<String, Object> productDetails) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -56,11 +57,11 @@ public class ProductEntity {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -80,12 +81,12 @@ public class ProductEntity {
         this.productDetails = productDetails;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    public CategoryEntity getOrigin() {
-        return origin;
+
+    public CategoryEntity getCategory() {
+        return category;
     }
 
-    public void setOrigin(CategoryEntity origin) {
-        this.origin = origin;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

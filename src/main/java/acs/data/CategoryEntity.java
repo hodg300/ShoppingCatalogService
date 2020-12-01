@@ -15,6 +15,7 @@ public class CategoryEntity {
     @NotEmpty(message="Description can not be empty")
     private String description ;    // FIRST VARCHAR(255)
 
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<ProductEntity> productsElements;
 
     public CategoryEntity() {
@@ -43,7 +44,7 @@ public class CategoryEntity {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "origin", fetch = FetchType.LAZY)
+
     public Set<ProductEntity> getProductsElements() {
         return productsElements;
     }

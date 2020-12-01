@@ -2,10 +2,7 @@ package acs.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import acs.boundary.CategoryBoundary;
 import acs.logic.CategoriesService;
 
@@ -27,24 +24,18 @@ public class CategoriesController {
 //	}
 
 
+	  // Get all users with pagination
 
-	/*
-	 * // Get all users with pagination
-	 * 
-	 * @RequestMapping(path = "/users/search", method = RequestMethod.GET, produces
-	 * = MediaType.APPLICATION_JSON_VALUE) public UserBoundary[]
-	 * getAllUsers(@RequestParam(name = "size", required = false, defaultValue =
-	 * "10") int size,
-	 * 
-	 * @RequestParam(name = "page", required = false, defaultValue = "0") int page,
-	 * 
-	 * @RequestParam(name = "sortBy", required = false, defaultValue = "email")
-	 * String sortBy,
-	 * 
-	 * @RequestParam(name = "sortOrder", required = false, defaultValue = "ASC")
-	 * String sortOrder) { return userService.getAllUsers(size, page, sortBy,
-	 * sortOrder).toArray(new UserBoundary[0]); }
-	 */
+	  @RequestMapping(path = "/shopping/categories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	  public CategoryBoundary[] getAllCategories(
+	  		@RequestParam(name = "size", required = false, defaultValue = "10") int size,
+			@RequestParam(name = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(name = "sortBy", required = false, defaultValue = "name") String sortBy,
+			@RequestParam(name = "sortOrder", required = false, defaultValue = "ASC") String sortOrder) {
+
+	  	return categoriesService.getAllCategories(size, page, sortBy, sortOrder).toArray(new CategoryBoundary[0]);
+	  }
+
 
 	// Get all users by criteria type with pagination
 //	@RequestMapping(path = "/users/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

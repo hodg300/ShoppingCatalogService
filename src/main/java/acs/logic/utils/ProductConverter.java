@@ -5,6 +5,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductConverter {
+    private CategoryConverter categoryConverter;
+
+    public ProductConverter() {
+        this.categoryConverter = new CategoryConverter();
+    }
+
     public ProductBoundary fromEntity(ProductEntity entity) {
         ProductBoundary rv = new ProductBoundary();
         rv.setId(entity.getId());
@@ -12,6 +18,7 @@ public class ProductConverter {
         rv.setName(entity.getName());
         rv.setPrice(entity.getPrice());
         rv.setProductDetails(entity.getProductDetails());
+        rv.setCategory(categoryConverter.fromEntity(entity.getCategory()));
 
         return rv;
     }
@@ -22,6 +29,7 @@ public class ProductConverter {
         rv.setImage(boundary.getImage());
         rv.setName(boundary.getName());
         rv.setPrice(boundary.getPrice());
+        rv.setCategory(categoryConverter.toEntity(boundary.getCategory()));
         rv.setProductDetails(boundary.getProductDetails());
         return rv;
     }

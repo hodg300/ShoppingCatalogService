@@ -10,19 +10,19 @@ import acs.logic.EnhancedCategoriesService;
 @RestController
 public class AdminController {
 	
-	private EnhancedCategoriesService enhancedUserService;
+	private EnhancedCategoriesService enhancedCategoriesService;
 	
 	@Autowired
-	public AdminController(EnhancedCategoriesService enhancedUserService) {
-		this.enhancedUserService = enhancedUserService;
+	public AdminController(EnhancedCategoriesService enhancedCategoriesService) {
+		this.enhancedCategoriesService = enhancedCategoriesService;
 	}
 	
 	/*--------------------- DELETE APIS ------------------- */
 
-	@RequestMapping(path = "/users",
+	@RequestMapping(path = "/shopping",
 			method = RequestMethod.DELETE)
-	public void deleteAllUsers() {
-		this.enhancedUserService.deleteAllUsers();
+	public void deleteAllShopping() {
+		this.enhancedCategoriesService.deleteAllShopping();
 	}
 
 }

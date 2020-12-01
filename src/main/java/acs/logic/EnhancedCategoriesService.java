@@ -2,6 +2,6 @@ package acs.logic;
 
 public interface EnhancedCategoriesService extends CategoriesService {
 
-    void deleteAllUsers();
+    void deleteAllShopping();
 
 }

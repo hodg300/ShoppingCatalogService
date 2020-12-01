@@ -1,8 +1,11 @@
 package acs.logic.db;
 
 import acs.exceptions.AlreadyExistsException;
+import acs.exceptions.BadRequestException;
 import acs.logic.EnhancedCategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +13,9 @@ import acs.boundary.CategoryBoundary;
 import acs.dao.CategoryDao;
 import acs.data.CategoryEntity;
 import acs.logic.utils.CategoryConverter;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DatabaseCategoriesService implements EnhancedCategoriesService {
@@ -33,6 +39,14 @@ public class DatabaseCategoriesService implements EnhancedCategoriesService {
 		return this.converter.fromEntity(categoryEntity);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<CategoryBoundary> getAllCategories(int size, int page, String sortBy, String sortOrder) {
+				return this.categoryDao.findAll(
+						PageRequest.of(page, size, Sort.Direction.valueOf(sortOrder), sortBy)).getContent()
+		.stream().map(this.converter::fromEntity).collect(Collectors.toList());
+	}
+
 //	@Override
 //	@Transactional(readOnly = true)
 //	public CategoryBoundary getUser(String email) {
@@ -46,7 +60,7 @@ public class DatabaseCategoriesService implements EnhancedCategoriesService {
 
 	@Override
 	@Transactional
-	public void deleteAllUsers() {
+	public void deleteAllShopping() {
 		this.categoryDao.deleteAll();
 	}
 
